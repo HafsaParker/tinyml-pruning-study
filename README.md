@@ -89,6 +89,9 @@ tinyml-pruning-study/
 ├── mnist_vs_fashion_pruning.png      # Cross-dataset comparison graph
 ├── tinynet_baseline.pth              # Saved MNIST baseline model
 ├── tinynet_fashion_baseline.pth      # Saved FashionMNIST baseline model
+├── 04_layer_sensitivity_checkpoints.ipynb  # Multi-checkpoint sensitivity gap experiment
+├── layer_sensitivity_gap_mnist_full.png    # Gap vs sparsity, all 21 checkpoints
+├── layer_sensitivity_raw_mnist.png         # Per-layer accuracy, all 21 checkpoints
 └── README.md
 ```
 
