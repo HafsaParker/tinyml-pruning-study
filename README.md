@@ -25,10 +25,10 @@ Uniform magnitude pruning maintains accuracy until a critical threshold. For MNI
 | Sparsity | MNIST Accuracy | FashionMNIST Accuracy |
 |---|---|---|
 | 0% (baseline) | 99% | 89.70% |
-| 40% | 98.56% | 87.20% |
-| 60% | 96.99% | 74.86% |
-| 70% | 86.77% | 58.88% |
-| 80% | 56.83% | 29.38% |
+| 40% | 98.56% | 86.02% |
+| 60% | 96.99% | 75.35% |
+| 70% | 86.77% | 66.37% |
+| 80% | 56.83% | 33.16% |
 
 Simple datasets tolerate aggressive pruning. Complex datasets degrade from 40% sparsity onwards — no sharp cliff, just steady decay.
 
