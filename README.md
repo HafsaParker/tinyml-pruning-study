@@ -24,7 +24,7 @@ Uniform magnitude pruning maintains accuracy until a critical threshold. For MNI
 ### Finding 2 — Dataset Complexity Determines Pruning Tolerance
 | Sparsity | MNIST Accuracy | FashionMNIST Accuracy |
 |---|---|---|
-| 0% (baseline) | 99% | 89.70% |
+| 0% (baseline) | 99% | 89.26% |
 | 40% | 98.56% | 86.02% |
 | 60% | 96.99% | 75.35% |
 | 70% | 86.77% | 66.37% |
