@@ -1,0 +1,64 @@
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 8px; font-size: 12px; color: var(--text-secondary);">
+  <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#378ADD;"></span>conv1</span>
+  <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#1D9E75;"></span>conv2</span>
+  <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#534AB7;"></span>fc1</span>
+  <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#D85A30;"></span>fc2</span>
+</div>
+<div style="position: relative; width: 100%; height: 340px;">
+  <canvas id="fashionFullClean" role="img" aria-label="Line chart of accuracy for conv1, conv2, fc1, and fc2 on FashionMNIST pruned in isolation, across all twelve checkpoints: 0, 10, 20, 30, 40, 79, 80, 81, 82, 83, 84, 85 percent, evenly spaced for readability. Hover any point for exact values. All four layers are flat and close together through 40 percent. From 79 percent onward conv2 and fc2 drop early and plateau, fc1 declines only slightly, and conv1 starts highest among the four at 79 percent but collapses sharply after 81 percent to become the lowest by 85 percent.">Hover for exact values. Checkpoints 41-78% were not tested.</canvas>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+  const labels = ['0','10','20','30','40','79','80','81','82','83','84','85'];
+  const data = {
+    conv1: [89.06,88.96,88.99,87.65,87.49,84.74,73.94,73.94,53.68,36.23,36.23,22.48],
+    conv2: [89.06,89.06,89.25,89.06,88.95,73.08,72.28,74.33,72.32,71.67,71.12,68.53],
+    fc1:   [89.06,88.99,89.04,89.18,89.38,86.82,86.15,86.39,85.76,84.04,83.09,83.42],
+    fc2:   [89.06,88.80,89.12,88.59,87.45,81.67,79.86,79.75,79.05,81.03,79.88,68.77]
+  };
+  const colors = { conv1: '#378ADD', conv2: '#1D9E75', fc1: '#534AB7', fc2: '#D85A30' };
+
+  new Chart(document.getElementById('fashionFullClean'), {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: Object.keys(data).map(layer => ({
+        label: layer,
+        data: data[layer],
+        borderColor: colors[layer],
+        backgroundColor: colors[layer],
+        borderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        tension: 0,
+        fill: false
+      }))
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: (items) => `Sparsity ${items[0].label}%`,
+            label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}%`
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { font: { size: 10 }, color: '#898781' },
+          grid: { color: '#e1e0d9' },
+          title: { display: true, text: 'sparsity (%)', font: { size: 11 }, color: '#52514e' }
+        },
+        y: {
+          ticks: { font: { size: 10 }, color: '#898781' },
+          grid: { color: '#e1e0d9' },
+          title: { display: true, text: 'accuracy (%)', font: { size: 11 }, color: '#52514e' }
+        }
+      }
+    }
+  });
+</script>
