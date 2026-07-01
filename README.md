@@ -112,6 +112,7 @@ Dataset complexity appears to govern whether the sensitivity gap provides early 
 ---
 
 ## Repository Structure
+```
 tinyml-pruning-study/
 ├── 01_baseline_training.ipynb               # TinyNet training on MNIST and FashionMNIST
 ├── 02_pruning_experiments.ipynb             # Uniform pruning, sensitivity analysis, smart pruning (MNIST)
@@ -124,6 +125,7 @@ tinyml-pruning-study/
 ├── tinynet_baseline.pth                     # Saved MNIST baseline model weights
 ├── tinynet_fashion_baseline.pth             # Saved FashionMNIST baseline model weights
 └── README.md
+```
 ---
 
 ## Foundational Papers
