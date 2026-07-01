@@ -54,7 +54,6 @@ For complex tasks — feature extraction layers are most sensitive.
 Smart pruning + layer-wise retraining achieves near-baseline accuracy at 79.3% sparsity on both datasets — less than 1% accuracy loss.
 
 ---
-
 ### Finding 5 — Layer Sensitivity Gap Tracks the Cliff, Does Not Predict It Early (MNIST)
 Single-layer isolated pruning across 21 checkpoints (60-80% sparsity) shows the sensitivity
 gap (most-sensitive minus least-sensitive layer accuracy) stays flat near baseline noise
@@ -69,6 +68,9 @@ Isolated single-layer damage cannot account for the full magnitude of the joint 
 at 67% sparsity, pruning fc2 alone costs ~1 accuracy point, while pruning all four layers
 together costs ~7 points — pointing to layer-interaction effects under joint pruning that
 single-layer sensitivity testing cannot capture by design.
+
+---
+
 
 ## Connection to Literature
 
