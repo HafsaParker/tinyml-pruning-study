@@ -24,11 +24,11 @@ Uniform magnitude pruning maintains accuracy until a critical threshold. For MNI
 ### Finding 2 — Dataset Complexity Determines Pruning Tolerance
 | Sparsity | MNIST Accuracy | FashionMNIST Accuracy |
 |---|---|---|
-| 0% (baseline) | 99% | 89.70% |
-| 40% | 98.56% | 87.20% |
-| 60% | 96.99% | 74.86% |
-| 70% | 86.77% | 58.88% |
-| 80% | 56.83% | 29.38% |
+| 0% (baseline) | 99% | 89.26% |
+| 40% | 98.56% | 86.02% |
+| 60% | 96.99% | 75.35% |
+| 70% | 86.77% | 66.37% |
+| 80% | 56.83% | 33.16% |
 
 Simple datasets tolerate aggressive pruning. Complex datasets degrade from 40% sparsity onwards — no sharp cliff, just steady decay.
 
@@ -54,6 +54,23 @@ For complex tasks — feature extraction layers are most sensitive.
 Smart pruning + layer-wise retraining achieves near-baseline accuracy at 79.3% sparsity on both datasets — less than 1% accuracy loss.
 
 ---
+### Finding 5 — Layer Sensitivity Gap Tracks the Cliff, Does Not Predict It Early (MNIST)
+Single-layer isolated pruning across 21 checkpoints (60-80% sparsity) shows the sensitivity
+gap (most-sensitive minus least-sensitive layer accuracy) stays flat near baseline noise
+(~0.6-0.9 points) through 65% sparsity, then departs from that baseline starting at 67% —
+the same checkpoint where the uniform-pruning cliff itself begins, not earlier. The gap
+continues widening well past the cliff, reaching >15 points by 80% sparsity.
+
+fc2 (MNIST's most sensitive layer) drives nearly the entire gap throughout. Layer ranking
+never flips across the full 60-80% range.
+
+Isolated single-layer damage cannot account for the full magnitude of the joint cliff:
+at 67% sparsity, pruning fc2 alone costs ~1 accuracy point, while pruning all four layers
+together costs ~7 points — pointing to layer-interaction effects under joint pruning that
+single-layer sensitivity testing cannot capture by design.
+
+---
+
 
 ## Connection to Literature
 
@@ -120,21 +137,7 @@ tinyml-pruning-study/
 - [ ] Explore structured pruning
 - [ ] Thesis registration with supervisor
 
----
-### Finding 5 — Layer Sensitivity Gap Tracks the Cliff, Does Not Predict It Early (MNIST)
-Single-layer isolated pruning across 21 checkpoints (60-80% sparsity) shows the sensitivity
-gap (most-sensitive minus least-sensitive layer accuracy) stays flat near baseline noise
-(~0.6-0.9 points) through 65% sparsity, then departs from that baseline starting at 67% —
-the same checkpoint where the uniform-pruning cliff itself begins, not earlier. The gap
-continues widening well past the cliff, reaching >15 points by 80% sparsity.
 
-fc2 (MNIST's most sensitive layer) drives nearly the entire gap throughout. Layer ranking
-never flips across the full 60-80% range.
-
-Isolated single-layer damage cannot account for the full magnitude of the joint cliff:
-at 67% sparsity, pruning fc2 alone costs ~1 accuracy point, while pruning all four layers
-together costs ~7 points — pointing to layer-interaction effects under joint pruning that
-single-layer sensitivity testing cannot capture by design.
 
 **Conclusion:** sensitivity and the cliff are entangled (consistent with Kanjo's framing),
 but the gap functions as a concurrent signal here, not an early-warning one. Cross-dataset
