@@ -52,7 +52,7 @@ These results suggest that **single-seed pruning studies may not reliably charac
 The figure below summarizes warning onset and collapse onset obtained using the same methodology across all datasets and random seeds.
 
 <p align="center">
-  <img src="figures/warning_collapse_dumbbell.png" width="900">
+  <img src="warning_collapse_dumbbell.png" width="900">
 </p>
 
 Open circles denote **warning onset**, filled circles denote **collapse onset**, and the connecting line represents the available warning window before irreversible accuracy degradation.
